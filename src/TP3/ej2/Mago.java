@@ -13,22 +13,30 @@ public class Mago extends Thread {
         this.tipo = tipo;
     }
 
-    public void usarMagia() throws InterruptedException {
-        synchronized(energia) {
-            String accion;
-            if (tipo == 0) {
-                energia.hacerAlgo(3);
-                accion = "curó";
+    public boolean usarMagia() throws InterruptedException {
+        boolean sigue = true;
+        synchronized (energia) {
+            if (energia.getEnergia() < 100 && energia.getEnergia() > 0) {
+                String accion;
+                if (tipo == 0) {
+                    energia.hacerAlgo(3);
+                    accion = "curó";
+                } else {
+                    energia.hacerAlgo(-3);
+                    accion = "drenó";
+                }
+                System.out.println(Thread.currentThread().getName() + ": " + accion + " 3 de vida. Energía actual: " + energia.getEnergia());
+                //Thread.sleep(50);
             } else {
-                energia.hacerAlgo(-3);
-                accion = "drenó";
+                sigue = false;
             }
-            System.out.println(Thread.currentThread().getName() + ": " + accion + " 3 de vida. Energía actual: " + energia.getEnergia());
         }
+        return sigue;
     }
 
     public void run() {
-        while (energia.getEnergia() < 100 && energia.getEnergia() > 0) {
+        boolean sigue = true;
+        while (sigue) {
             try {
                 /*
                 try {
@@ -37,7 +45,7 @@ public class Mago extends Thread {
                 Logger.getLogger(Sanador.class.getName()).log(Level.SEVERE, null, ex);
                 }
                  */
-                usarMagia();
+                sigue = usarMagia();
             } catch (InterruptedException ex) {
                 Logger.getLogger(Mago.class.getName()).log(Level.SEVERE, null, ex);
             }
