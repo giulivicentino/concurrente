@@ -10,33 +10,21 @@ package TP3.ej3;
  */
 public class Jaula {
    
+  Hamaca hamaquita = new Hamaca();
+   Plato platito = new Plato();
+   Rueda ruedita = new Rueda();
     //que se hace en la jaula
     
- public synchronized void usarPlato(int numeroHamster){
-     System.out.println("Hamster: " +numeroHamster+ "esta comiendo " );  
-     try{
-         Thread.sleep(1000);
-     }catch(InterruptedException e){
-         
-     }
+ public  void comer(int numeroHamster){ //no es SYNCHRONIZED por que sino seguiria pasando que hay un solo hamster en la jaula
+   platito.usarPlato(numeroHamster);
+   
  }   
     
-  public synchronized void usarRueda(int numeroHamster){
-     System.out.println("Hamster: " +numeroHamster+ "esta corriendo " );  
-     try{
-         Thread.sleep(1000);
-     }catch(InterruptedException e){
-         
-     }
+  public void correr(int numeroHamster){
+    ruedita.usarRueda(numeroHamster);
  }   
   
-   public synchronized void usarHamaca(int numeroHamster){
-     System.out.println("Hamster: " +numeroHamster+ "esta descanzando " );  
-     try{
-         Thread.sleep(1000);
-     }catch(InterruptedException e){
-         
-     }
+   public void dormir(int numeroHamster){
+    hamaquita.usarHamaca(numeroHamster);
  }   
- 
 }

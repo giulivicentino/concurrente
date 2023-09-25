@@ -13,9 +13,9 @@ public class Hamster implements Runnable {
     }
     
     public void run(){
-        jaula1.usarPlato(numHamster);
-        jaula1.usarRueda(numHamster);
-        jaula1.usarHamaca(numHamster);
+        jaula1.comer(numHamster);
+        jaula1.correr(numHamster);
+        jaula1.dormir(numHamster);
     }
     
 }
