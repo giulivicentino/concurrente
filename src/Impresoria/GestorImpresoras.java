@@ -7,7 +7,7 @@ package Impresoria;
 public class GestorImpresoras {
 
     private Impresora[] colImpresoras = new Impresora[cantImpresoras];
-    private static final int cantImpresoras = 5;
+    private static final int cantImpresoras = 20;
 
     public GestorImpresoras() {
         for (int j = 0; j < cantImpresoras; j++) {
@@ -27,8 +27,7 @@ public class GestorImpresoras {
                 impAux.liberar();
                 //System.out.println(Thread.currentThread().getName() + " liberó impresora "+impAux.getId());
             } else {
-                System.out.println(Thread.currentThread().getName() + " en imp "+(i+1));
-                i = (i + 1) % 5;
+                i = (i + 1) % cantImpresoras;
             }
         } while (!encontro);
     }

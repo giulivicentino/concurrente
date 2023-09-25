@@ -34,7 +34,6 @@ public class Impresora {
             
             System.out.println("CLIENTE " + Thread.currentThread().getName() + " USANDO IMPRESORA " + this.getId());
             System.out.println("Imprimiendo...");
-            System.out.println(this.getId() +" --- " +sem.availablePermits());
         }
         mutex.release();
         return exito;
@@ -43,7 +42,6 @@ public class Impresora {
     public boolean liberar() {
         enUso = false;
         sem.release();
-        System.out.println(this.getId() +" --- " +sem.availablePermits());
         System.out.println("CLIENTE " + Thread.currentThread().getName() + " LIBERA IMPRESORA " + this.getId());
         return enUso;
     }
