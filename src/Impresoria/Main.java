@@ -6,11 +6,12 @@ package Impresoria;
  */
 public class Main {
     public static void main(String[] args){
-        Cliente[] clientes = new Cliente[4];
-        for (int i = 0; i < 4; i++) {
-            clientes[i] = new Cliente();
+        GestorImpresoras gestor = new GestorImpresoras();
+        Cliente[] clientes = new Cliente[5];
+        for (int i = 0; i < 5; i++) {
+            clientes[i] = new Cliente(gestor);
         }
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             clientes[i].start();
         }
     }

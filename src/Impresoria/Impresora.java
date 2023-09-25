@@ -26,16 +26,25 @@ public class Impresora {
 
     public boolean usar() throws InterruptedException {
         mutex.acquire();
+        boolean exito = false;
         if (!enUso) {
-            enUso = true;
             sem.acquire();
+            exito = true;
+            enUso = true;
+            
+            System.out.println("CLIENTE " + Thread.currentThread().getName() + " USANDO IMPRESORA " + this.getId());
+            System.out.println("Imprimiendo...");
+            System.out.println(this.getId() +" --- " +sem.availablePermits());
         }
         mutex.release();
-        return !enUso;
+        return exito;
     }
 
-    public void liberar() {
+    public boolean liberar() {
         enUso = false;
         sem.release();
+        System.out.println(this.getId() +" --- " +sem.availablePermits());
+        System.out.println("CLIENTE " + Thread.currentThread().getName() + " LIBERA IMPRESORA " + this.getId());
+        return enUso;
     }
 }
