@@ -13,6 +13,7 @@ public class Hamster implements Runnable {
     }
     
     public void run(){
+        System.out.println("el hamster "+numHamster+ "lo mato jere!!");
         jaula1.comer(numHamster);
         jaula1.correr(numHamster);
         jaula1.dormir(numHamster);
