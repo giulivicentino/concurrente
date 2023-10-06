@@ -1,4 +1,6 @@
-package parcial1;
+package TPOtrenes;
+
+import TPOtrenes.Tren;
 
 public class ControlTren extends Thread {
 

@@ -1,4 +1,4 @@
-package parcial1;
+package TPOtrenes;
 
 /**
  *
