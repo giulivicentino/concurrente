@@ -8,8 +8,18 @@ package TP4.ej4.Impresoria;
  *
  * @author giuli
  */
-public class Cliente {
-   
-    GestorImpresoras gestor = new GestorImpresoras();
+public class Cliente extends Thread{
+    GestorImpresoras gestor;
+    
+    public Cliente(GestorImpresoras gestor){
+        this.gestor = gestor;
+    }
+    
+    public void run(){
+        try {
+            gestor.buscar();
+        } catch (InterruptedException ex) {
+        }
+        System.out.println(Thread.currentThread().getName() +" TERMINEEEEEEE");
+    }
 }
-

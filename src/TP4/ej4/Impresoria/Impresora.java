@@ -11,20 +11,32 @@ import java.util.concurrent.Semaphore;
  * @author giuli
  */
 public class Impresora {
-      private boolean enUso = false;
-    private Semaphore sem = new Semaphore(1);
-    
-    public void usar() throws InterruptedException{
-        enUso = true;
+
+    private int idImpresora;
+
+    private Semaphore sem;
+    private GestorImpresoras elGestor;
+
+    public Impresora(int idImpresora, GestorImpresoras elGestor) {
+        this.idImpresora = idImpresora;
+        sem = new Semaphore(1);
+        this.elGestor = elGestor;
+    }
+
+    public int getId() {
+        return idImpresora;
+    }
+
+    public void usar() throws InterruptedException {
         sem.acquire();
+        System.out.println("CLIENTE " + Thread.currentThread().getName() + " USANDO IMPRESORA " + this.getId());
+        System.out.println("Imprimiendo...");
     }
-    
-    public void liberar(){
-        enUso = false;
+
+    public void liberar() {
         sem.release();
-    }
-    
-    public boolean estaEnUso(){
-        return enUso;
+        System.out.println("CLIENTE " + Thread.currentThread().getName() + " LIBERA IMPRESORA " + this.getId());
+        //me libero, voy a colaLibre
+        
     }
 }
