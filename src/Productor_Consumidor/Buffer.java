@@ -9,11 +9,13 @@ public class Buffer {
     private Semaphore lugaresDisp = new Semaphore(capacidad); // para agregar
     private Semaphore usados = new Semaphore(0);  //para sacar elementos
     
+    
     public boolean puedeAgregar(int num){
         return (num<= (capacidad- cantidadU));
     }
     
     public void agregar(int num) throws InterruptedException{
+        cantidadU= cantidadU + num;
         lugaresDisp.acquire(num); // le saco la cantidad que hay total disponible
         usados.release(num); //le doy la cantidad q agregue
     }
@@ -23,6 +25,7 @@ public class Buffer {
     }
     
     public void sacar(int num) throws InterruptedException{
+        cantidadU = cantidadU - num;
         lugaresDisp.release(num); //le vuelvo a dar el "lugar"
         usados.acquire(num); //le descuento a la cantidad de usados
     }
