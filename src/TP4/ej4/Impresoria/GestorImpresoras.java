@@ -44,7 +44,7 @@ public class GestorImpresoras {
                 listaOcupada.remove(impAux);
                 
                 //lo pongo en la de libres
-                colaLibre.add(impAux)
+                colaLibre.add(impAux);
             }else{
                 semVacio.acquire();
             }
@@ -52,5 +52,4 @@ public class GestorImpresoras {
         
     }
     
-    public void
 }
