@@ -29,8 +29,8 @@ public class Mozo extends Thread {
             } catch (InterruptedException ex) {
 
             }
-            System.out.println("toma la cocucha");
-            conf.entregarComida();
+            System.out.println("le doy la cocucha");
+            conf.entregarBebida();
         }
     }
 }

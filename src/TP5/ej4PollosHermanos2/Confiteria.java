@@ -11,8 +11,8 @@ import java.util.concurrent.Semaphore;
  * @author giuli
  */
 public class Confiteria {
-    private Semaphore mutexMozo = new Semaphore(1);
-    private Semaphore mutexCocinero = new Semaphore(1);
+    private Semaphore mutexMozo = new Semaphore(0);
+    private Semaphore mutexCocinero = new Semaphore(0);
    
     
    private Semaphore semComedor = new Semaphore(2);
@@ -37,10 +37,10 @@ public class Confiteria {
    }
    
    public void entregarBebida(){
-       comer.release();
+      tomar.release();
    }
    public void entregarComida(){
-       tomar.release();
+       comer.release();
    }
    
    public void tomar() throws InterruptedException{

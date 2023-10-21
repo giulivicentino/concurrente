@@ -24,21 +24,26 @@ public class Empleado extends Thread {
     @Override
     public void run() {
         try {
+            System.out.println(Thread.currentThread().getName()+"quiero sentarme-----------");
             confi.sentarse();
             
             switch (opcion) {
                 case 1://si pide bebida
+                    System.out.println(Thread.currentThread().getName()+"pedi opcion 1 solo bebida");
                     confi.pedirBebida();
                     confi.tomar();
                     ;
                     break;
                 case 2: //si pide comida
+                    System.out.println(Thread.currentThread().getName()+"pedi opcion 2 solo comida");
                     confi.pedirComida();
                     confi.comer();
                     break;
                 case 3: // si pide ambas
+                    System.out.println(Thread.currentThread().getName()+"pedi opcion 3 ambas cosas");
                     confi.pedirBebida();
                     confi.tomar();
+                    System.out.println(Thread.currentThread().getName()+"pedi 3 ya tengo bebida quiero comer!!");
                     confi.pedirComida();
                     confi.comer();
                     break;
@@ -48,6 +53,7 @@ public class Empleado extends Thread {
             } catch (InterruptedException ex) {
             }
             confi.irse();
+            System.out.println(Thread.currentThread().getName()+"me re fuiuiii---------------");
         } catch (InterruptedException ex) {
             Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
         }
