@@ -19,6 +19,7 @@ public class TorreControl extends Thread {
     @Override
     public void run(){
         while(true){
+          
             pissta.controlTorre();
         }
     }
