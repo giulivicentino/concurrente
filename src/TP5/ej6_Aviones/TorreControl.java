@@ -8,6 +8,18 @@ package TP5.ej6_Aviones;
  *
  * @author giuli
  */
-public class TorreControl {
+public class TorreControl extends Thread {
+
+    private Pista pissta;
+
+    public TorreControl(Pista pissta) {
+        this.pissta = pissta;
+    }
     
+    @Override
+    public void run(){
+        while(true){
+            pissta.controlTorre();
+        }
+    }
 }
