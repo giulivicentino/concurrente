@@ -22,9 +22,11 @@ public class Pista {
         System.out.println(Thread.currentThread().getName() + " termine el despegoooo");
         huboDespegue = true;
         System.out.println("aterrizajes actuales: " + cantAterrizajes + " hubo despegue?   " + huboDespegue);
+        
+        mutexTorre.release();//ahora dejo que la torre controlee
+        
         mutexPista.release();
         semDespegue.release();
-        mutexTorre.release();//ahora dejo que la torre controlee
     }
 
     public void controlTorre() throws InterruptedException {//reseteo la los permisos de aterrizajes a que vuela a ser 10
@@ -32,9 +34,8 @@ public class Pista {
         if (huboDespegue ) {//si ya uno pudo aterrizar no te interesa el despegue
             semAterrizaje.release(cantAterrizajes); //con que despegue alguno ya pueden aterrizar hasta 10 mas
             huboDespegue = false;
-            cantAterrizajes=0;
-        }
-        if (cantAterrizajes == 5) {
+            cantAterrizajes= 0;
+        }else  if (cantAterrizajes == 5) {
             semAterrizaje.release(cantAterrizajes); //con que despegue alguno ya pueden aterrizar hasta 10 mas
             cantAterrizajes = 0;
         }
@@ -50,8 +51,9 @@ public class Pista {
         System.out.println(Thread.currentThread().getName() + " termine de aterrizaaaar ");
         cantAterrizajes++;
         System.out.println("aterrizajes actuales: " + cantAterrizajes + " hubo despegue?   " + huboDespegue);
+        mutexTorre.release(); //ahora dejo que la torre controlee
         mutexPista.release();
-mutexTorre.release(); //ahora dejo que la torre controlee
+
     }
 
 }
