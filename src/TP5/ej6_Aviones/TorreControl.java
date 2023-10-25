@@ -4,6 +4,9 @@
  */
 package TP5.ej6_Aviones;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author giuli
@@ -20,7 +23,11 @@ public class TorreControl extends Thread {
     public void run(){
         while(true){
           
-            pissta.controlTorre();
+            try {
+                pissta.controlTorre();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(TorreControl.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }
