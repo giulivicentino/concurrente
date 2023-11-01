@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package TPO.monitores;
 
 /**
@@ -13,42 +9,49 @@ public class Sala {
     private boolean hayResponsable = false;
     private boolean hayCritico = false;
     private int cantVisitantes = 0;
+    private final int capacidad = 6;
 
-    public void visitar() throws InterruptedException {
-        while (hayCritico) {
+    public synchronized void visitar() throws InterruptedException {
+        while (hayCritico || cantVisitantes == capacidad) {
             this.wait();
         }
         System.out.println(Thread.currentThread().getName() + " ando visitandoooo");
-        synchronized(this){
-            cantVisitantes++;
-        }
-        Thread.sleep(200);
-        
+        cantVisitantes++;
     }
 
-    public void controlar() throws InterruptedException {
+    public synchronized void terminarDeVisitar() {
+        System.out.println(Thread.currentThread().getName() + " termine de visitar");
+        this.notifyAll();
+        cantVisitantes--;
+    }
+
+    public synchronized void controlar() throws InterruptedException {
         while (hayResponsable || hayCritico) {
             this.wait();
         }
+        hayResponsable = true;
         System.out.println(Thread.currentThread().getName() + " ando controlandoooo");
-        Thread.sleep(400);
-        this.notifyAll();
+
     }
 
-    public void criticar() throws InterruptedException {
+    public synchronized void criticar() throws InterruptedException {
         while (hayCritico || hayResponsable || cantVisitantes > 0) {
             this.wait();
         }
+        hayCritico = true;
         System.out.println(Thread.currentThread().getName() + " ando criticando");
-        Thread.sleep(400);
+    }
+
+    public synchronized void terminarDeControlar() {
+        System.out.println(Thread.currentThread().getName() + " termine de controlar");
+        hayResponsable = false;
         this.notifyAll();
     }
-    
-    public void entraResponsable(){
-        hayResponsable = true;
+
+    public synchronized void terminarDeCriticar() {
+        System.out.println(Thread.currentThread().getName() + " termine de criticar");
+        hayCritico = false;
+        this.notifyAll();
     }
-    
-    public void entraCritico(){
-        hayCritico = true;
-    }
+
 }
