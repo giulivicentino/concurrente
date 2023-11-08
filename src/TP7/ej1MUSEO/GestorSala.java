@@ -1,4 +1,3 @@
-
 package TP7.ej1MUSEO;
 
 import java.util.concurrent.locks.Condition;
@@ -8,7 +7,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class GestorSala { //monitooooor
 
     private int jubiladosEsperando = 0;
-    private int limite = 50; //si tUmbral es +30   limite = 35
+    private int limite = 5; //si tUmbral es +30   limite = 35
     private int tUmbral = 30;
     private int tempActual = 0;
     private int cantPersonasActual = 0;
@@ -21,8 +20,8 @@ public class GestorSala { //monitooooor
 
 //metodo de persona
     public void entrarSala() {
+        museo.lock();
         try {
-            museo.lock();
             while (cantPersonasActual >= limite || jubiladosEsperando != 0) {
                 personas.await();
             }
@@ -35,56 +34,58 @@ public class GestorSala { //monitooooor
         }
     }
 
-        //metodo de jubilado
-     public void entrarSalaJubilado() {
+    //metodo de jubilado
+    public void entrarSalaJubilado() {
+        museo.lock();
+
         try {
             jubiladosEsperando++;
-            museo.lock();
+
             while (cantPersonasActual >= limite) {
                 jubilados.await();
             }
             System.out.println(Thread.currentThread().getName() + "  JUBILADOOOO  entre a la salaa");
             cantPersonasActual++;
-
+            jubiladosEsperando--;
         } catch (InterruptedException ex) {
         } finally {
             museo.unlock();
         }
     }
-        //metodo de persona/jubilado
-     public void salirSala(boolean esJubilado){
-         museo.lock();
+    //metodo de persona/jubilado
+
+    public void salirSala(boolean esJubilado) {
+        museo.lock();
         try {
-            if(esJubilado){
+            if (esJubilado) {
                 System.out.println(Thread.currentThread().getName() + "  JUBILADOOO me voooy de la salaa");
-                jubiladosEsperando--;
-            }else{
+                jubilados.signalAll();
+            } else {
                 System.out.println(Thread.currentThread().getName() + "  COMUUUN  me voooy de la salaa");
+                personas.signalAll();
             }
             cantPersonasActual--;
         } finally {
             museo.unlock();
         }
-     }
-        //metodo de medidor
-    public void notificarTemperatura(int temperatura){
+    }
+    //metodo de medidor
+
+    public void notificarTemperatura(int temperatura) {
         museo.lock();
-        try{
-            tempActual= temperatura;
-            if(tempActual > tUmbral){
-                limite=35;
-            }else{
-                limite=50;
+        try {
+            tempActual = temperatura;
+            if (tempActual > tUmbral) {
+                limite = 3;
+            } else {
+                limite = 5;
             }
-            System.out.println("La Temperatura Actual es de " + tempActual + "°C");
-            System.out.println("La Sala tiene una Capacidad Maxima de " + limite + " personas");
-        }catch(Exception ex){}
-        
-        finally{
+            System.out.println("                                           La Temperatura Actual es de " + tempActual + "°C");
+            System.out.println("                                           La Sala tiene una Capacidad Maxima de " + limite + " personas");
+        } catch (Exception ex) {
+        } finally {
             museo.unlock();
         }
-       
-               
-              
+
     }
 }

@@ -1,25 +1,35 @@
-
 package TP7.ej1MUSEO;
 
 import java.util.Random;
 
 public class Main {
-  public static void main(String[] args) {
+ public static void main(String[] args){
+        int cantPersonas = 15;
+        int cantJubilados = 0;
+        int cantNoJubilados;
+        Persona[] personas = new Persona[cantPersonas];
+        Random r = new Random();
         GestorSala sala = new GestorSala();
-Random r = new Random();
         Medidor medidor = new Medidor(sala);
-        medidor.start();
-
-        for(int i = 1; i < 60; i++) {
-            boolean tipo = r.nextBoolean();
-            if(i % 5 == 0) {
-                Persona persona = new Persona("Jubilado " + i, tipo, sala);
-                persona.start();
-            } else {
-                Persona persona = new Persona("Persona " + i, tipo, sala);
-                persona.start();
+        for (int i = 0; i < cantPersonas; i++) {
+            boolean aux = r.nextBoolean();
+            if (aux) {
+                 personas[i] = new Persona("Jubilado "+i, aux, sala);
+                cantJubilados++;
+            }else{
+                 personas[i] = new Persona("Persona "+i, aux, sala);
+                 
             }
         }
+        cantNoJubilados = cantPersonas - cantJubilados;
+        System.out.println("Cant. jubilados: "+cantJubilados);
+        System.out.println("Cant. no jubilados: "+cantNoJubilados);
+        medidor.start();
+        for (int i = 0; i < cantPersonas; i++) {
+            System.out.println("que pasa+"+ personas[i]);
+            personas[i].start();
+        }
     }
-    
 }
+   
+
