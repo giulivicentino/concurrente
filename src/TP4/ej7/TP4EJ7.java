@@ -3,7 +3,7 @@ package tp4.ej7;
 public class TP4EJ7 {
 
     public static void main(String[] args) {
-        int k = 10000;
+        int k = 10;
         Confiteria confiteria = new Confiteria();
         Empleado[] empleados = new Empleado[k];
         Mozo mozo = new Mozo(confiteria);

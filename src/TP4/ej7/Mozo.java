@@ -23,8 +23,8 @@ public class Mozo extends Thread {
         while (true) {
             try {
                 conf.hobby();
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Mozo.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (InterruptedException ex) {
+                             Logger.getLogger(Mozo.class.getName()).log(Level.SEVERE, null, ex);
             }
             System.out.println("Haciendo el pollito");
             try {
