@@ -58,6 +58,11 @@ public class GestorSala { //monitooooor
             if(esJubilado){
                 System.out.println(Thread.currentThread().getName() + "  JUBILADOOO me voooy de la salaa");
                 jubiladosEsperando--;
+                if(jubiladosEsperando!=0){
+                    jubilados.signal();
+                }else{
+                    personas.signal();
+                }
             }else{
                 System.out.println(Thread.currentThread().getName() + "  COMUUUN  me voooy de la salaa");
             }
