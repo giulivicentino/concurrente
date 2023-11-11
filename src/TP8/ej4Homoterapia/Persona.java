@@ -15,7 +15,7 @@ public class Persona extends Thread {
 public void run(){
     try{
         salita.pedirCamilla();
-        Thread.sleep(r.nextInt());
+        Thread.sleep(r.nextInt(100,1000));
         salita.salirCamilla();  
     }catch(InterruptedException e){
 }
