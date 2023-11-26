@@ -8,6 +8,22 @@ package TP8.ej2Observatorio;
  *
  * @author giuli
  */
-public class Visitante {
+public class Visitante extends Thread {
+    private boolean esSilla;
+     Observatorio obs;
     
+    public Visitante(Observatorio obs,boolean esSilla){
+        this.obs=obs;
+        this.esSilla=esSilla;
+    }
+    
+    public void run(){
+        try {
+                obs.entrarVisitante(esSilla);
+                Thread.sleep(100,1000);
+                obs.salirVisitante(esSilla);
+        } catch (InterruptedException ex) {
+           
+        }
+    }
 }
